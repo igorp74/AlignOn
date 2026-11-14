@@ -201,7 +201,7 @@ Result
 
 </details>
 
-## Behaviour notes
+## 🗒️ Behaviour notes
 
 - **No trailing whitespace.** The last column is never padded, so left-aligned and centered output has no trailing spaces.
 - **Ragged rows are fine.** Rows with fewer cells than the widest row are aligned as far as they go.
