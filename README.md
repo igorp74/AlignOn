@@ -1,21 +1,28 @@
 # AlignOn
 Align text into columns on one or more delimiters. A small, fast, single static binary written in Rust.
 Reads stdin, handles multi-character delimiters, quoted cells and wide (CJK / emoji) characters,
-and lets you align **each column left, right or centered** independently.
+and lets you align **each column left, right or centered** independently.  
+Original idea was from Sublime Text's AlignTab extension, since I am not using Sublime for years, I wanted to have something small and efficient for Helix (CLI) or KDE Kate (GUI).
 
-```
-$ printf '1+1=2\n11+11=22\n111+111=222\n' | alignon + = -r
-  1 +   1 =   2
- 11 +  11 =  22
-111 + 111 = 222
-```
+
 
 ## Build
 
-```
-cargo build --release
-# binary: target/release/alignon
-```
+### 1. 📥 Clone the Repository
+
+> Open terminal app in the folder where you will download the code (Downloads) and type:
+> 
+> ```bash
+> git clone https://github.com/igorp74/AlignOn.git
+> cd AlignOn
+> ```
+
+### 2. ⚙️ Build the application
+> Usual build
+> ```
+> cargo build --release
+> # binary: target/release/alignon
+> ```
 
 
 ## Usage
@@ -70,8 +77,8 @@ With `-q=QUAL`, a cell that starts with `QUAL` is not split until the closing `Q
 inside is an escaped quote. An unclosed `QUAL` is treated as ordinary text.
 
 ## Examples
-
-All examples below are real output.
+<details>
+<summary>All examples below are real output.</summary>
 
 ### Align on several delimiters, right-align everything
 
@@ -146,6 +153,53 @@ name   | age
 Åsa    |   7
 日本語 |  42
 ```
+</details>
+
+<details>
+<summary>Use it with Helix editor.</summary>
+
+Mark all source text with `%a`:
+<img width="1219" height="611" alt="image" src="https://github.com/user-attachments/assets/3891457e-ceb3-4b70-9bd7-fd10868e0822" />
+
+Pipe command `|`:
+<img width="1218" height="613" alt="image" src="https://github.com/user-attachments/assets/89349c04-51d2-4983-8aa5-0ad8597545d0" />
+
+Result
+<img width="1216" height="615" alt="image" src="https://github.com/user-attachments/assets/f5989de1-82c5-476b-89cb-78e6c1e2c9ae" />
+
+</details>
+
+<details>
+<summary>Use it with KDE Kate editor.</summary>
+
+First, prepare this script:
+
+```bash
+#!/bin/bash
+ARGS=$(kdialog --inputbox "Delimiter(s) and flags:" "|" --title "Align columns")
+[ $? -ne 0 ] && exit 0          # user pressed Cancel
+exec /usr/local/bin/alignon $ARGS
+```
+
+and save it to `/usr/local/bin` as `alignon_kate`, 
+then make it executable `chmod +x alignon_kate`
+
+Then, go to **Tools > External Tools > Configure...**
+<img width="1079" height="667" alt="image" src="https://github.com/user-attachments/assets/2ed0b14b-50bb-4f4b-b3dc-de872d1b8c75" />
+
+Go to **Add > Add Tool...** and fulfil like this:
+<img width="801" height="717" alt="image" src="https://github.com/user-attachments/assets/a103e3f0-045f-42b0-b017-4b8cb1fb1785" />
+
+Finally, add icon if you want and shortcut (not mandatory, but helpful) and you are set.
+
+Now, you may operate within KDE Kate editor
+<img width="1233" height="674" alt="image" src="https://github.com/user-attachments/assets/a2832700-c008-43fa-ba7d-b054e7af4fd5" />
+
+Result
+<img width="1227" height="671" alt="image" src="https://github.com/user-attachments/assets/9d500f84-f927-45d4-8d45-4b8742b2e391" />
+
+
+</details>
 
 ## Behaviour notes
 
