@@ -76,7 +76,7 @@ Options that take a value use `=` (`-g=2`, not `-g 2`).
 With `-q=QUAL`, a cell that starts with `QUAL` is not split until the closing `QUAL`. A doubled `QUAL`
 inside is an escaped quote. An unclosed `QUAL` is treated as ordinary text.
 
-## Examples
+## ⚡ Examples
 <details>
 <summary>All examples below are real output.</summary>
 
